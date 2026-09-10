@@ -1,0 +1,200 @@
+<div class="tool-card">
+  <!-- Header -->
+  <div class="card-header">
+    <h2>Color Code Converter</h2>
+    <p>Convert HEX color codes to RGB & HSL formats</p>
+  </div>
+
+  <div class="card-body">
+    <!-- Input Section -->
+    <div class="input-group">
+      <label for="hex-input">Enter HEX Color Code or Pick Color</label>
+      <div class="color-picker-wrapper">
+        <input type="text" id="hex-input" value="#1565C0" placeholder="#1565C0" oninput="convertColor()" />
+        <input type="color" id="color-picker" value="#1565c0" onchange="syncFromPicker(this.value)" />
+      </div>
+    </div>
+
+    <!-- Color Preview Box -->
+    <div class="preview-box" id="preview-box" style="background-color: #1565C0;">
+      <span id="preview-text">#1565C0</span>
+    </div>
+
+    <!-- Results Box -->
+    <div class="result-box">
+      <div class="res-title">Converted Color Formats</div>
+      
+      <div class="res-item">
+        <span><strong>RGB:</strong> <span id="rgb-res">rgb(21, 101, 192)</span></span>
+        <button onclick="copyToClipboard('rgb-res')">Copy</button>
+      </div>
+      
+      <div class="res-item">
+        <span><strong>HSL:</strong> <span id="hsl-res">hsl(212, 80%, 42%)</span></span>
+        <button onclick="copyToClipboard('hsl-res')">Copy</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .tool-card {
+    max-width: 420px;
+    margin: 20px auto;
+    background: #ffffff;
+    border: 2px solid #1565c0;
+    border-radius: 12px;
+    overflow: hidden;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  }
+  .card-header {
+    background: #1565c0;
+    color: #ffffff;
+    padding: 20px 15px;
+    text-align: center;
+  }
+  .card-header h2 { margin: 0; font-size: 22px; font-weight: bold; }
+  .card-header p { margin: 6px 0 0 0; font-size: 13px; opacity: 0.9; }
+  .card-body { padding: 20px; }
+  .input-group { margin-bottom: 15px; display: flex; flex-direction: column; }
+  .input-group label { font-size: 13px; font-weight: bold; color: #1565c0; margin-bottom: 6px; }
+  
+  .color-picker-wrapper {
+    display: flex;
+    gap: 8px;
+  }
+  .color-picker-wrapper input[type="text"] {
+    flex: 1;
+    padding: 10px 12px;
+    border: 1.5px solid #b3e5fc;
+    border-radius: 8px;
+    font-size: 15px;
+    outline: none;
+    color: #0d47a1;
+    font-weight: bold;
+  }
+  .color-picker-wrapper input[type="color"] {
+    width: 45px;
+    height: 42px;
+    border: 1.5px solid #b3e5fc;
+    border-radius: 8px;
+    cursor: pointer;
+    background: none;
+    padding: 2px;
+  }
+
+  .preview-box {
+    height: 60px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+    border: 1px solid rgba(0,0,0,0.1);
+    transition: background-color 0.3s;
+  }
+  .preview-box span {
+    color: #ffffff;
+    font-weight: bold;
+    text-shadow: 0px 1px 3px rgba(0,0,0,0.6);
+    font-size: 16px;
+  }
+
+  .result-box {
+    background: #e1f5fe;
+    border: 1.5px solid #b3e5fc;
+    border-radius: 10px;
+    padding: 15px;
+  }
+  .res-title { font-size: 13px; color: #0288d1; font-weight: bold; margin-bottom: 10px; text-align: center; }
+  
+  .res-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 8px 0;
+    font-size: 14px;
+    color: #0d47a1;
+    background: #ffffff;
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: 1px solid #b3e5fc;
+  }
+  .res-item button {
+    background: #1565c0;
+    color: white;
+    border: none;
+    padding: 4px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: bold;
+  }
+  .res-item button:hover { background: #0d47a1; }
+</style>
+
+<script>
+  function hexToRgb(hex) {
+    let c = hex.replace('#', '');
+    if (c.length === 3) c = c.split('').map(x => x + x).join('');
+    if (c.length !== 6) return null;
+    let num = parseInt(c, 16);
+    return { r: (num >> 16) & 255, g: (num >> 8) & 255, b: num & 255 };
+  }
+
+  function rgbToHsl(r, g, b) {
+    r /= 255; g /= 255; b /= 255;
+    let max = Math.max(r, g, b), min = Math.min(r, g, b);
+    let h, s, l = (max + min) / 2;
+
+    if (max === min) {
+      h = s = 0;
+    } else {
+      let d = max - min;
+      s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+      switch (max) {
+        case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+        case g: h = (b - r) / d + 2; break;
+        case b: h = (r - g) / d + 4; break;
+      }
+      h /= 6;
+    }
+    return {
+      h: Math.round(h * 360),
+      s: Math.round(s * 100),
+      l: Math.round(l * 100)
+    };
+  }
+
+  function convertColor() {
+    let hex = document.getElementById('hex-input').value.trim();
+    if (!hex.startsWith('#')) hex = '#' + hex;
+
+    let rgb = hexToRgb(hex);
+    if (rgb) {
+      let hsl = rgbToHsl(rgb.r, rgb.g, rgb.b);
+      document.getElementById('rgb-res').innerText = `rgb(${rgb.r}, ${rgb.g}, ${rgb.b})`;
+      document.getElementById('hsl-res').innerText = `hsl(${hsl.h}, ${hsl.s}%, ${hsl.l}%)`;
+      document.getElementById('preview-box').style.backgroundColor = hex;
+      document.getElementById('preview-text').innerText = hex.toUpperCase();
+      document.getElementById('color-picker').value = hex.length === 7 ? hex : '#1565c0';
+    } else {
+      document.getElementById('rgb-res').innerText = 'Invalid HEX';
+      document.getElementById('hsl-res').innerText = 'Invalid HEX';
+    }
+  }
+
+  function syncFromPicker(val) {
+    document.getElementById('hex-input').value = val.toUpperCase();
+    convertColor();
+  }
+
+  function copyToClipboard(elementId) {
+    let text = document.getElementById(elementId).innerText;
+    if (text && !text.includes('Invalid')) {
+      navigator.clipboard.writeText(text);
+      alert('Copied: ' + text);
+    }
+  }
+</script>
