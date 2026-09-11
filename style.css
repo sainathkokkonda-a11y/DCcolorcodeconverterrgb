@@ -1,0 +1,133 @@
+.tool-card {
+    max-width: 420px;
+    margin: 20px auto;
+    background: #ffffff;
+    border: 2px solid #1565c0;
+    border-radius: 12px;
+    overflow: hidden;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+    background: #1565c0;
+    color: #ffffff;
+    padding: 20px 15px;
+    text-align: center;
+}
+
+.card-header h2 { 
+    margin: 0; 
+    font-size: 22px; 
+    font-weight: bold; 
+}
+
+.card-header p { 
+    margin: 6px 0 0 0; 
+    font-size: 13px; 
+    opacity: 0.9; 
+}
+
+.card-body { 
+    padding: 20px; 
+}
+
+.input-group { 
+    margin-bottom: 15px; 
+    display: flex; 
+    flex-direction: column; 
+}
+
+.input-group label { 
+    font-size: 13px; 
+    font-weight: bold; 
+    color: #1565c0; 
+    margin-bottom: 6px; 
+}
+
+.color-picker-wrapper {
+    display: flex;
+    gap: 8px;
+}
+
+.color-picker-wrapper input[type="text"] {
+    flex: 1;
+    padding: 10px 12px;
+    border: 1.5px solid #b3e5fc;
+    border-radius: 8px;
+    font-size: 15px;
+    outline: none;
+    color: #0d47a1;
+    font-weight: bold;
+}
+
+.color-picker-wrapper input[type="color"] {
+    width: 45px;
+    height: 42px;
+    border: 1.5px solid #b3e5fc;
+    border-radius: 8px;
+    cursor: pointer;
+    background: none;
+    padding: 2px;
+}
+
+.preview-box {
+    height: 60px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+    border: 1px solid rgba(0,0,0,0.1);
+    transition: background-color 0.3s;
+}
+
+.preview-box span {
+    color: #ffffff;
+    font-weight: bold;
+    text-shadow: 0px 1px 3px rgba(0,0,0,0.6);
+    font-size: 16px;
+}
+
+.result-box {
+    background: #e1f5fe;
+    border: 1.5px solid #b3e5fc;
+    border-radius: 10px;
+    padding: 15px;
+}
+
+.res-title { 
+    font-size: 13px; 
+    color: #0288d1; 
+    font-weight: bold; 
+    margin-bottom: 10px; 
+    text-align: center; 
+}
+
+.res-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 8px 0;
+    font-size: 14px;
+    color: #0d47a1;
+    background: #ffffff;
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: 1px solid #b3e5fc;
+}
+
+.res-item button {
+    background: #1565c0;
+    color: white;
+    border: none;
+    padding: 4px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.res-item button:hover { 
+    background: #0d47a1; 
+}
