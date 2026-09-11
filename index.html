@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color Code Converter</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="tool-card">
+        <!-- Header -->
+        <div class="card-header">
+            <h2>Color Code Converter</h2>
+            <p>Convert HEX color codes to RGB & HSL formats</p>
+        </div>
+
+        <div class="card-body">
+            <!-- Input Section -->
+            <div class="input-group">
+                <label for="hex-input">Enter HEX Color Code or Pick Color</label>
+                <div class="color-picker-wrapper">
+                    <input type="text" id="hex-input" value="#1565C0" placeholder="#1565C0" oninput="convertColor()" />
+                    <input type="color" id="color-picker" value="#1565c0" onchange="syncFromPicker(this.value)" />
+                </div>
+            </div>
+
+            <!-- Color Preview Box -->
+            <div class="preview-box" id="preview-box" style="background-color: #1565C0;">
+                <span id="preview-text">#1565C0</span>
+            </div>
+
+            <!-- Results Box -->
+            <div class="result-box">
+                <div class="res-title">Converted Color Formats</div>
+                
+                <div class="res-item">
+                    <span><strong>RGB:</strong> <span id="rgb-res">rgb(21, 101, 192)</span></span>
+                    <button onclick="copyToClipboard('rgb-res')">Copy</button>
+                </div>
+                
+                <div class="res-item">
+                    <span><strong>HSL:</strong> <span id="hsl-res">hsl(212, 80%, 42%)</span></span>
+                    <button onclick="copyToClipboard('hsl-res')">Copy</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
